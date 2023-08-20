@@ -1,15 +1,26 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.2'
+	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.1.2'
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'kr.co.seop.toy.backtech.BacktechApplication'
+	}
+}
+
+springBoot {
+	mainClassName = 'kr.co.seop.toy.backtech.BacktechApplication'
 }
 
 group = 'kr.co.seop.toy'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '11'
 }
+
 
 configurations {
 	compileOnly {
@@ -23,9 +34,26 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation 'javax.jws:jsr181-api:1.0-MR1'
+	implementation 'javax.xml.ws:jaxws-api:2.3.1'
+}
+
+springBoot {
+	mainClassName = 'kr.co.seop.toy.backtech.BacktechApplication' // 여기에 실제 메인 클래스의 경로를 지정하세요
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << '-Xlint:unchecked'
 }
 
 tasks.named('test') {
